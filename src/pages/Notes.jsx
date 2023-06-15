@@ -1,4 +1,10 @@
+import { Link } from "react-router-dom";
+
 import { CiSearch } from "react-icons/ci";
+import { BsPlusLg } from "react-icons/bs";
+
+import dummyNotes from "../dummy_notes";
+import NoteItem from "../components/NoteItem";
 
 const Notes = () => {
   return (
@@ -10,6 +16,14 @@ const Notes = () => {
           <CiSearch />
         </button>
       </header>
+      <div className="notes__container">
+        {dummyNotes.map((note) => (
+          <NoteItem key={note.id} />
+        ))}
+      </div>
+      <Link className="btn add__btn">
+        <BsPlusLg />
+      </Link>
     </section>
   );
 };
