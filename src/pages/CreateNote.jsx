@@ -1,23 +1,28 @@
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
+import { IoIosArrowBack } from "react-icons/io";
+
 import useCreateDate from "../hooks/useCreateDate";
+import getRandomColor from "../components/NoteColor";
 
 const CreateNote = ({ setNotes }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const date = useCreateDate();
+  const color = getRandomColor();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (title && details) {
-      const note = { id: uuid(), title, details, date };
-      //Agrego nota al array
+      const note = { id: uuid(), title, details, date, color };
+      // add this note to the Notes array
       setNotes((prevNotes) => [note, ...prevNotes]);
-      //Re direcciono al home
+
+      // redirect to home page
       navigate("/");
     }
   };
@@ -25,8 +30,10 @@ const CreateNote = ({ setNotes }) => {
   return (
     <section>
       <header className="create-note__header">
-        <Link to="/" className="btn">
-          <IoIosArrowBack />
+        <Link to="/">
+          <button className="btn">
+            <IoIosArrowBack />
+          </button>
         </Link>
         <button className="btn lg primary" onClick={handleSubmit}>
           Save
@@ -35,15 +42,15 @@ const CreateNote = ({ setNotes }) => {
       <form className="create-note__form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Titulo"
+          placeholder="Title"
+          autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          autoFocus
         />
         <textarea
           rows="28"
+          placeholder="Note details.."
           value={details}
-          placeholder="Detalle..."
           onChange={(e) => setDetails(e.target.value)}
         ></textarea>
       </form>

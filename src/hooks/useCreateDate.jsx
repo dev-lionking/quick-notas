@@ -1,6 +1,6 @@
 const useCreateDate = () => {
   const dateObj = new Date();
-  const month = dateObj.month;
+  const month = dateObj.getMonth();
   let monthName;
 
   switch (month) {
@@ -39,6 +39,9 @@ const useCreateDate = () => {
       break;
     case 11:
       monthName = "Dec";
+      break;
+    default:
+      monthName = "INVALID MONTH";
       break;
   }
 
